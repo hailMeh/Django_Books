@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseNotFound, Http404
 
 
 def index(request):
-    return HttpResponse('<h1>INDEX</h1>')
+    return render(request, 'women/index.html')
 
 
 def categories(request, cat):

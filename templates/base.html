@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+{# Load the tag library #}
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+</head>
+<body>
+<nav class="bg-white navbar navbar-expand-lg navbar-light pb-lg-1 pt-lg-3 text-uppercase">
+    <div class="container flex-wrap">
+        <a class="mx-lg-auto navbar-brand text-primary" href="#">Company</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown-7"
+                aria-controls="navbarNavDropdown-7" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse w-100 justify-content-center" id="navbarNavDropdown-7">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-lg-3" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-lg-3" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-lg-3" href="#">Features</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link px-lg-3 py-lg-3 dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                       role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Services </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-lg-3" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<section class="bg-light pb-5 pt-5 text-secondary">
+    <div class="container">
+        <div class="bg-white mb-4 p-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="#" class="d-block mb-3 mb-md-0"><img
+                            src="https://images.unsplash.com/photo-1508672019048-805c876b67e2?ixid=MXwyMDkyMnwwfDF8c2VhcmNofDJ8fHRyYXZlbHxlbnwwfHx8&ixlib=rb-1.2.1q=85&fm=jpg&crop=faces&cs=srgb&w=700&h=480&fit=crop"
+                            class="img-fluid w-100" alt="..." width="700" height="480"></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#" class="text-dark text-decoration-none"><h3 class="font-weight-bold h4">Relaxing and
+                        observing the mountain reflection in a lake</h3></a>
+                    <h4 class="font-weight-bold h6 mb-3 small text-secondary">10 August 2020</h4>
+                    <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat
+                        duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+                    <button type="button" class="btn btn-outline-secondary btn-sm">Read More</button>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white mb-4 p-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="#" class="d-block mb-3 mb-md-0"><img
+                            src="https://images.unsplash.com/photo-1499363536502-87642509e31b?ixid=MXwyMDkyMnwwfDF8c2VhcmNofDE2fHx0cmF2ZWx8ZW58MHx8fA&ixlib=rb-1.2.1q=85&fm=jpg&crop=faces&cs=srgb&w=700&h=480&fit=crop"
+                            class="img-fluid w-100" alt="..." width="700" height="480"></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#" class="text-dark text-decoration-none"><h3 class="font-weight-bold h4">How to enjoy
+                        running your business?</h3><h4 class="font-weight-bold h6 mb-3 small text-secondary">10 August
+                        2020</h4></a>
+                    <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat
+                        duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+                    <button type="button" class="btn btn-outline-secondary btn-sm">Read More</button>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white mb-4 p-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="#" class="d-block mb-3 mb-md-0"><img
+                            src="https://images.unsplash.com/photo-1471506480208-91b3a4cc78be?ixid=MXwyMDkyMnwwfDF8c2VhcmNofDUyfHx0cmF2ZWx8ZW58MHx8fA&ixlib=rb-1.2.1q=85&fm=jpg&crop=faces&cs=srgb&w=700&h=480&fit=crop"
+                            class="img-fluid w-100" alt="..." width="700" height="480"></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#" class="text-dark text-decoration-none"><h3 class="font-weight-bold h4">How to notice
+                        colors when cycling over a mountain pass?</h3><h4
+                            class="font-weight-bold h6 mb-3 small text-secondary">10 August 2020</h4></a>
+                    <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat
+                        duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+                    <button type="button" class="btn btn-outline-secondary btn-sm">Read More</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="bg-light pb-3 pt-3 small text-secondary">
+    <div class="container">
+        <div class="align-items-center row">
+            <div class="col-md pb-2 pt-2">
+                <p class="mb-0">&copy; 2002 - 2020. All Rights Reserved - Company Name</p>
+            </div>
+            <div class="col-md-auto pb-2 pt-2">
+                <a href="#" class="text-secondary">Privacy Policy</a> |
+                <a href="#" class="text-secondary">Terms of Use</a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
