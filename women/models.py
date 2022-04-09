@@ -3,10 +3,10 @@ from django.db import models
 
 #  https://djbook.ru/rel3.0/ref/models/fields.html - ВСЕ ДОСТУПНЫЕ ПОЛЯ В МОДЕЛЯХ
 
-class Women(models.Model):
+class Book(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField(blank=True)  # Бланк можно оставить незаполненным,ругаться не будет
-    photo = models.ImageField(upload_to="photos/%Y/%m/%d/")  # pip install pillow
+    photo = models.ImageField(upload_to="photos/%Y/%m/%d/" , blank=True)  # pip install pillow
     time_create = models.DateTimeField(
         auto_now_add=True) # Позволяет фиксировать текущее время только в момент первого добавления записи в таблицу БД;
     time_update = models.DateTimeField(

@@ -10,4 +10,4 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)  # Чтобы из статики картинки жобавлялись в юрл для показа
+                          document_root=settings.MEDIA_ROOT)  # Чтобы из статики картинки добавлялись в юрл для показа
