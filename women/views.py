@@ -5,7 +5,11 @@ from .models import Book
 
 def index(request):
     books = Book.objects.all()
-    return render(request, 'women/index.html', {'title': 'index', 'books': books})
+    context = {
+        'title': 'index',
+        'books': books
+    }
+    return render(request, 'women/index.html', context=context)
 
 
 def categories(request, cat):
@@ -17,13 +21,42 @@ def categories(request, cat):
 def archive(request, year):
     if int(year) > 2022:  # Если год больше нынешнего, дай ошибку,которая перенаправит на хэндлер404
         raise Http404()  #  return redirect('/')
-    return render(request, 'women/archives.html', {'title': 'archives'})
+    context = {
+        'title': 'archive'
+    }
+    return render(request, 'women/archives.html', context=context)
 
 
 def about(request):
-    return render(request, 'women/about.html', {'title': 'about'})
+    context = {
+        'title': 'about'
+    }
+    return render(request, 'women/about.html', context=context)
+
+
+def addpage(request):
+    return HttpResponse("Добавление статьи")
+
+
+def contact(request):
+    context = {
+        'title': 'contact'
+    }
+    return render(request, 'women/contact.html', context=context)
+
+
+def login(request):
+    return HttpResponse("Авторизация")
 
 
 def pageNotFound(request, exception):  # Страница не найдена
     return HttpResponseNotFound('NOT FOUND PAGE')
 
+
+def show_book(request, pk):
+    book = Book.objects.get(pk=pk)
+    context = {
+        'title': 'show_book',
+        'book': book
+    }
+    return render(request, 'women/show_book.html', context=context)
