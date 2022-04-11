@@ -44,11 +44,10 @@
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Category
                     </a>
-
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Python</a></li>
-                        <li><a class="dropdown-item" href="#">Django</a></li>
-                        <li><a class="dropdown-item" href="#">Algorithms</a></li>
+                                            {% for c in cats %}
+                        <li><a class="dropdown-item" href="{{ c.get_absolute_url }}">{{c.name}}</a></li>
+                                            {% endfor %}
                     </ul>
                 </li>
                 <li class="nav-item">

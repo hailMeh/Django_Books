@@ -1,21 +1,28 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from .models import Book
+from .models import Book, Category
 
 
 def index(request):
     books = Book.objects.all()
+    cats = Category.objects.all()
     context = {
         'title': 'index',
-        'books': books
+        'books': books,
+        'cats': cats
     }
     return render(request, 'women/index.html', context=context)
 
 
-def categories(request, cat):
-    '''   if int(cat) > 2020:
-       return redirect('index')  # Проверяемый параметр должен совпадать с параметром у URL !!!  '''
-    return HttpResponse(f"<h1>Статьи по категориям</h1>{cat}</p>")
+def show_category(request, category):
+    book = Book.objects.filter(category_id=category)
+    cats = Category.objects.all()
+    context = {
+        'book': book,
+        'cats': cats,
+        'title': {category},
+    }
+    return render(request, 'women/show_category.html', context=context)
 
 
 def archive(request, year):
