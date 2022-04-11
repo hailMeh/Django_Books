@@ -35,8 +35,16 @@
                 <li class="nav-item">
                     <a class="nav-link px-lg-3 py-lg-3" href="{% url 'about' %}">About</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link px-lg-3 py-lg-3" href="{% url 'archive' 2022 %}">Archives</a>
+                <li class="nav-item dropdown">
+                    <a class="btn btn-sm dropdown-toggle px-lg-3 py-lg-3" href="#" role="button" id="dropdownMenuLink"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Archive
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        {% for y in year %}
+                            <li><a class="dropdown-item" href="{{ y.get_absolute_url }}">{{ y.date }}</a></li>
+                        {% endfor %}
+                    </ul>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -45,16 +53,16 @@
                         Category
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            {% for c in cats %}
-                        <li><a class="dropdown-item" href="{{ c.get_absolute_url }}">{{c.name}}</a></li>
-                                            {% endfor %}
+                        {% for c in cats %}
+                            <li><a class="dropdown-item" href="{{ c.get_absolute_url }}">{{ c.name }}</a></li>
+                        {% endfor %}
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link px-lg-3 py-lg-3" href="{% url 'contact' %}">My Contacts</a>
                 </li>
             </ul>
-        </div>
+    </div>
     </div>
 </nav>
 

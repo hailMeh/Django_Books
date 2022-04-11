@@ -14,12 +14,17 @@ class Book(models.Model):
         auto_now=True)  # Фиксирует текущее время всякий раз при изменении или добавлении записи в таблицу БД
     is_published = models.BooleanField(default=True)
     category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True)  # Null чтобы не ругалось
+    year = models.ForeignKey('Year', on_delete=models.PROTECT, null=True)
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('show_book', kwargs={'pk': self.pk})
+
+    class Meta:
+        verbose_name = 'Книги'
+        verbose_name_plural = 'Книги'
 
 
 class Category(models.Model):
@@ -30,3 +35,21 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return reverse('category', kwargs={'category': self.pk})
+
+    class Meta:
+        verbose_name = 'Категории'
+        verbose_name_plural = 'Категории'
+
+
+class Year(models.Model):
+    date = models.CharField(max_length=100, verbose_name='Издана в')
+
+    def __str__(self):
+        return self.date
+
+    def get_absolute_url(self):
+        return reverse('archive', kwargs={'year': self.pk})
+
+    class Meta:
+        verbose_name = 'Год издания'
+        verbose_name_plural = 'Год издания'
