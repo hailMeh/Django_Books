@@ -23,7 +23,7 @@ def show_category(request, category):
     context = {
         'book': book,
         'cats': cats,
-        'title': {category},
+        'title': 'category',
         'year': year
     }
     return render(request, 'women/show_category.html', context=context)

@@ -3,6 +3,28 @@ from .models import Book, Category, Year
 
 # Register your models here.
 
-admin.site.register(Book)
-admin.site.register(Category)
-admin.site.register(Year)
+
+class BookAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'time_create', 'photo', 'is_published')
+    list_display_links = ('id', 'title')
+    search_fields = ('title', 'content')
+    list_editable = ('is_published',)
+    list_filter = ('is_published', 'time_create')
+
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+    list_display_links = ('id', 'name')
+    search_fields = ('name',)
+
+
+class YearAdmin(admin.ModelAdmin):
+    list_display = ('id', 'date')
+    list_display_links = ('id', 'date')
+    search_fields = ('date',)
+
+
+admin.site.register(Book, BookAdmin)
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Year, YearAdmin)
+
