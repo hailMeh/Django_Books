@@ -19,7 +19,7 @@
                         <h3 class="font-weight-bold h5 mb-3 text-secondary">Category - {{ book.category }} </h3>
                         <h4 class="font-weight-bold h6 mb-3 small text-secondary">{{ book.time_create }}</h4>
                         <p>{{ book.content }}</p>
-                        <a href="#" class="btn btn-outline-secondary btn-sm">More django</a>
+                        <a href="{% url 'category' book.category.slug %}" class="btn btn-outline-secondary btn-sm">Back to {{ book.category }} books</a>
                     </div>
                 </div>
             </div>

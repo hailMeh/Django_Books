@@ -10,18 +10,21 @@ class BookAdmin(admin.ModelAdmin):
     search_fields = ('title', 'content')
     list_editable = ('is_published',)
     list_filter = ('is_published', 'time_create')
+    prepopulated_fields = {"slug": ("title",)}  # Автоматические преобразование из field в slug
 
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
     list_display_links = ('id', 'name')
     search_fields = ('name',)
+    prepopulated_fields = {"slug": ("name",)}
 
 
 class YearAdmin(admin.ModelAdmin):
     list_display = ('id', 'date')
     list_display_links = ('id', 'date')
     search_fields = ('date',)
+    prepopulated_fields = {"slug": ("date",)}
 
 
 admin.site.register(Book, BookAdmin)

@@ -3,15 +3,13 @@ from .views import index, show_category, archive, pageNotFound, about, addpage, 
 
 urlpatterns = [
     path('', index, name='index'),
-    path('category/<int:category>/', show_category, name='category'),
-    # path('cats/<slug:cat>', categories, name='category'),  # slug = text/int
+    path('category/<slug:category_slug>/', show_category, name='category'),
     path('about/', about, name='about'),
-    path('archive/<int:year>/', archive, name='archive'),
-    # регулярки [0-9] - разрешенные цифры , {4} - разрешенное кол-во цифр
+    path('archive/<slug:year_slug>/', archive, name='archive'),
     path('addpage/', addpage, name='add_page'),
     path('contact/', contact, name='contact'),
     path('login/', login, name='login'),
-    path('book/<int:pk>/', show_book, name='show_book'),
+    path('book/<slug:book_slug>/', show_book, name='show_book'),
 ]
 
 handler404 = pageNotFound  # Обработчик Хэндлеров, дебюг в false

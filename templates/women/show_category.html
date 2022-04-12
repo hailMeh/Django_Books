@@ -20,7 +20,7 @@
                         <h4 class="font-weight-bold h6 mb-3 small text-secondary">{{ b.time_create }}</h4>
                         <p>{{ b.content|linebreaks|truncatewords:50 }}</p>
                         <a href="{{ b.get_absolute_url }}" class="btn btn-outline-secondary btn-sm">Details</a>
-                        <a href="#" class="btn btn-outline-secondary btn-sm">More django</a>
+                        <a href="{% url 'category' b.category.slug %}" class="btn btn-outline-secondary btn-sm">Category</a>
                     </div>
                 </div>
             </div>

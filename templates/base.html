@@ -8,7 +8,7 @@
 {% bootstrap_javascript %}
 {# Display django.contrib.messages as Bootstrap alerts #}
 {% bootstrap_messages %}
-
+{% load women_tags %}
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -19,7 +19,8 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-
+{% get_categories as cats %}
+{% get_year as year %}
 <nav class="bg-white navbar navbar-expand-lg navbar-light pb-lg-1 pt-lg-3 text-uppercase">
     <div class="container flex-wrap">
         <a class="mx-lg-auto navbar-brand text-primary" href="{% url 'index' %}">My books</a>

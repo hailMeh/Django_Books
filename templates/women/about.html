@@ -1,2 +1,31 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="card mb-3" style="max-width: 1540px;">
+                <div class="row g-2">
+                    <div class="col-md-4">
+                        <img src="https://avatars.mds.yandex.net/i?id=d3e6d40467e564f0d7e01dcc8067da1d-5176143-images-thumbs&n=13"
+                             class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Pet project</h5>
+                            <p class="card-text">Hello! My name is Mikhail, and somehow you are on my pet project
+                                site. I call it simply 'My books'. I collecting here only the 5'stars books and i highly
+                                recommend you to start with one ;)</p>
+                            <p class="card-text"><small class="text-muted">My interests is: {% for c in cats %}
+                                <span class="pl-1">{{ c.name|lower }}</span>{% endfor %} and more.</small></p>
+                         <h5 class="card-title text-center">Enjoy your time here!</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

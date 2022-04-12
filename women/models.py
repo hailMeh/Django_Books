@@ -15,12 +15,13 @@ class Book(models.Model):
     is_published = models.BooleanField(default=True, verbose_name='Опубликовано')
     category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True)  # Null чтобы не ругалось
     year = models.ForeignKey('Year', on_delete=models.PROTECT, null=True)
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('show_book', kwargs={'pk': self.pk})
+        return reverse('show_book', kwargs={'book_slug': self.slug})
 
     class Meta:
         verbose_name = 'Книги'
@@ -30,12 +31,13 @@ class Book(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=100, db_index=True)
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('category', kwargs={'category': self.pk})
+        return reverse('category', kwargs={'category_slug': self.slug})
 
     class Meta:
         verbose_name = 'Категории'
@@ -44,12 +46,13 @@ class Category(models.Model):
 
 class Year(models.Model):
     date = models.CharField(max_length=100, verbose_name='Издана в')
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
 
     def __str__(self):
         return self.date
 
     def get_absolute_url(self):
-        return reverse('archive', kwargs={'year': self.pk})
+        return reverse('archive', kwargs={'year_slug': self.slug})
 
     class Meta:
         verbose_name = 'Год издания'
