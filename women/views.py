@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from .models import Book
+from .forms import *
+from .models import *
 
 
 def index(request):
-    books = Book.objects.all()
+    books = Book.objects.all().order_by('-time_create')  # Отображение на главной в обратном порядке
     context = {
         'title': 'index',
         'books': books,
@@ -23,7 +24,7 @@ def show_category(request, category_slug):
 
 def archive(request, year_slug):
     if int(year_slug) > 2022:  # Если год больше нынешнего, дай ошибку,которая перенаправит на хэндлер404
-        raise Http404()  #  return redirect('/')
+        raise Http404()  # return redirect('/')
     book = Book.objects.filter(year__slug=year_slug)
     context = {
         'title': 'archive',
@@ -39,8 +40,20 @@ def about(request):
     return render(request, 'women/about.html', context=context)
 
 
-def addpage(request):
-    return HttpResponse("Добавление статьи")
+def addbook(request):
+    if request.method == 'POST':
+        form = AddBookForm(request.POST, request.FILES)
+        if form.is_valid():
+                form.save()
+                return redirect('index')
+    else:
+        form = AddBookForm()
+
+    context = {
+        'title': 'add_book',
+        'form': form
+    }
+    return render(request, 'women/add_book.html', context=context)
 
 
 def contact(request):

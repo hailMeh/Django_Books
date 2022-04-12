@@ -29,7 +29,9 @@ INSTALLED_APPS = [
     'women.apps.WomenConfig',
 
     # 3rd party apps
-    'bootstrap5'  # pip install django-bootstrap-v5
+    'bootstrap5',  # pip install django-bootstrap-v5
+    "crispy_forms",  # pip install crispy-bootstrap5
+    "crispy_bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -116,3 +118,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Ссылка на папку с медиа файлами
 MEDIA_URL = '/media/'  # будет добавлять к URL графических файлов префикс media
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
