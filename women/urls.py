@@ -1,8 +1,8 @@
 from django.urls import path, re_path
-from .views import index, show_category, archive, pageNotFound, about, addbook, contact, login, show_book
+from .views import IndexView, show_category, archive, pageNotFound, about, addbook, contact, login, show_book
 
 urlpatterns = [
-    path('', index, name='index'),
+    path('', IndexView.as_view(), name='index'),
     path('category/<slug:category_slug>/', show_category, name='category'),
     path('about/', about, name='about'),
     path('archive/<slug:year_slug>/', archive, name='archive'),

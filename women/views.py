@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from .forms import *
 from .models import *
+from django.views.generic import ListView
 
-
+''' ФУНКЦИОНАЛЬНАЯ ГЛАВНАЯ СТРАНИЦА
 def index(request):
     books = Book.objects.all().order_by('-time_create')  # Отображение на главной в обратном порядке
     context = {
@@ -11,6 +12,22 @@ def index(request):
         'books': books,
     }
     return render(request, 'women/index.html', context=context)
+'''
+
+
+class IndexView(ListView):
+    model = Book
+    template_name = 'women/index.html'
+    context_object_name = 'books'  # Для вывода в шаблон по данному имени,а не object_list
+    #extra_context = {'title': 'Главная страница'}  # Статический контент для шаблона
+    queryset = Book.objects.all().order_by('-time_create')  # Отображение на главной в обратном порядке
+    #def get_queryset(self):
+    #   return Women.objects.filter(is_published=True)
+    #Queryset = Book.objects.filter(title__icontains='django')[:5]  Получение 5 книг, содержащих слово 'django' в заголовке
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'My Books'
+        return context
 
 
 def show_category(request, category_slug):
@@ -44,8 +61,8 @@ def addbook(request):
     if request.method == 'POST':
         form = AddBookForm(request.POST, request.FILES)
         if form.is_valid():
-                form.save()
-                return redirect('index')
+            form.save()
+            return redirect('index')
     else:
         form = AddBookForm()
 
