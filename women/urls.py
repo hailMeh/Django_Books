@@ -1,11 +1,11 @@
-from django.urls import path, re_path
-from .views import IndexView, CategoryView, archive, pageNotFound, about, AddBookView, contact, login, BookView
+from django.urls import path
+from .views import IndexView, CategoryView, ArchiveView, pageNotFound, about, AddBookView, contact, login, BookView
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('category/<slug:slug>/', CategoryView.as_view(), name='category'),
     path('about/', about, name='about'),
-    path('archive/<slug:slug>/', archive, name='archive'),
+    path('archive/<slug:slug>/', ArchiveView.as_view(), name='archive'),
     path('addbook/', AddBookView.as_view(), name='add_book'),
     path('contact/', contact, name='contact'),
     path('login/', login, name='login'),

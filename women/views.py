@@ -52,13 +52,13 @@ class CategoryView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):  # Шаблонная запись для изменения/отображения, гибко!
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Категория - ' + str(context['book'][0].category)
+        context['title'] = 'Category - ' + str(context['book'][0].category)
         return context
 
     def get_queryset(self):  # ОРМ можно применять через служебную функцию
         return Book.objects.filter(category__slug=self.kwargs['slug'], is_published=True)
 
-
+'''
 def archive(request, slug):
     if int(slug) > 2022:  # Если год больше нынешнего, дай ошибку,которая перенаправит на хэндлер404
         raise Http404()  # return redirect('/')
@@ -68,6 +68,21 @@ def archive(request, slug):
         'book': book,
     }
     return render(request, 'women/archives.html', context=context)
+'''
+
+
+class ArchiveView(ListView):
+    model = Book
+    template_name = 'women/archives.html'
+    context_object_name = 'book'
+
+    def get_context_data(self, *, object_list=None, **kwargs):  # Шаблонная запись для изменения/отображения, гибко!
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Year - ' + str(context['book'][0].year)
+        return context
+
+    def get_queryset(self):  # ОРМ можно применять через служебную функцию
+        return Book.objects.filter(year__slug=self.kwargs['slug'], is_published=True)
 
 
 def about(request):
