@@ -21,7 +21,7 @@ class Book(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('show_book', kwargs={'book_slug': self.slug})
+        return reverse('show_book', kwargs={'slug': self.slug})
 
     class Meta:
         verbose_name = 'Книги'
@@ -37,7 +37,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('category', kwargs={'category_slug': self.slug})
+        return reverse('category', kwargs={'slug': self.slug})
 
     class Meta:
         verbose_name = 'Категории'
@@ -52,7 +52,7 @@ class Year(models.Model):
         return self.date
 
     def get_absolute_url(self):
-        return reverse('archive', kwargs={'year_slug': self.slug})
+        return reverse('archive', kwargs={'slug': self.slug})
 
     class Meta:
         verbose_name = 'Год издания'

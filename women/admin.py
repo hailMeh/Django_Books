@@ -5,11 +5,11 @@ from .models import Book, Category, Year
 
 
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'time_create', 'photo', 'is_published')
-    list_display_links = ('id', 'title')
-    search_fields = ('title', 'content')
-    list_editable = ('is_published',)
-    list_filter = ('is_published', 'time_create')
+    list_display = ('id', 'title', 'time_create', 'photo', 'is_published') # Что отображать
+    list_display_links = ('id', 'title')  # Линкс на поля для перехода
+    search_fields = ('title', 'content') # поиск по полям
+    list_editable = ('is_published',) # что можно редактировать
+    list_filter = ('is_published', 'time_create')  # фильтрация по
     prepopulated_fields = {"slug": ("title",)}  # Автоматические преобразование из field в slug
 
 

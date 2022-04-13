@@ -10,7 +10,7 @@ class AddBookForm(forms.ModelForm):
         fields = ['title', 'slug', 'photo', 'content', 'year', 'category']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-input'}),
-            'content': forms.Textarea(attrs={'cols': 10, 'rows': 2}),
+            'content': forms.Textarea(attrs={'cols': 0, 'rows': 2}),
         }
 
     def clean_title(self):   #  Пользовательские ограничения в форме
