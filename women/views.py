@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, HttpResponseNotFound, Http404
+from django.http import HttpResponseNotFound, Http404
 from django.urls import reverse_lazy
 from .forms import *
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 ''' ФУНКЦИОНАЛЬНАЯ ГЛАВНАЯ СТРАНИЦА
 def index(request):
@@ -54,6 +55,7 @@ class CategoryView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):  # Шаблонная запись для изменения/отображения, гибко!
         context = super().get_context_data(**kwargs)
         context['title'] = 'Category - ' + str(context['book'][0].category)
+        context['category'] = Book.objects.filter(category__slug=self.kwargs['slug'])
         return context
 
     def get_queryset(self):  # ОРМ можно применять через служебную функцию
@@ -81,6 +83,7 @@ class ArchiveView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):  # Шаблонная запись для изменения/отображения, гибко!
         context = super().get_context_data(**kwargs)
         context['title'] = 'Year - ' + str(context['book'][0].year)
+        context['book_year'] = Book.objects.filter(year__date=self.kwargs['slug'])
         return context
 
     def get_queryset(self):  # ОРМ можно применять через служебную функцию
@@ -134,10 +137,6 @@ def contact(request):
         'title': 'contact',
     }
     return render(request, 'women/contact.html', context=context)
-
-
-def login(request):
-    return HttpResponse("Авторизация")
 
 
 def pageNotFound(request, exception):  # Страница не найдена

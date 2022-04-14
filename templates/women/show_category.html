@@ -4,6 +4,9 @@
 {% block content %}
 
     {% if book %}
+        {% for c in category|slice:1 %}
+            <p class="py-2 mb-2 text-center h1 text-dark">{{ c.category }} category</p>
+        {% endfor %}
         {% for b in book %}
             <section class="bg-light pb-2 pt-4 text-secondary">
                 <div class="container">

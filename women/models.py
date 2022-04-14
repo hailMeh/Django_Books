@@ -57,3 +57,4 @@ class Year(models.Model):
     class Meta:
         verbose_name = 'Год издания'
         verbose_name_plural = 'Год издания'
+

@@ -4,6 +4,9 @@
 {% block content %}
 
     {% if book %}
+        {% for y in book_year|slice:1 %}
+            <p class="py-2 mb-2 text-center h1 text-dark">{{ y.year }} Year</p>
+        {% endfor %}
         {% for b in book %}
             <section class="bg-light pb-2 pt-4 text-secondary">
                 <div class="container">
