@@ -9,7 +9,7 @@ class Book(models.Model):
     content = models.TextField(blank=True, verbose_name='Контент')  # Бланк можно оставить незаполненным,ругаться не будет
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/", blank=True)  # pip install pillow
     time_create = models.DateTimeField(
-        auto_now_add=True, verbose_name='Время создания') # Позволяет фиксировать текущее время только в момент первого добавления записи в таблицу БД;
+        auto_now_add=True, verbose_name='Время создания')  # Позволяет фиксировать текущее время только в момент первого добавления записи в таблицу БД;
     time_update = models.DateTimeField(
         auto_now=True)  # Фиксирует текущее время всякий раз при изменении или добавлении записи в таблицу БД
     is_published = models.BooleanField(default=True, verbose_name='Опубликовано')

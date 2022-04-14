@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.urls import reverse_lazy
-
 from .forms import *
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 ''' ФУНКЦИОНАЛЬНАЯ ГЛАВНАЯ СТРАНИЦА
 def index(request):
@@ -20,6 +20,7 @@ def index(request):
 class IndexView(ListView):
     model = Book
     template_name = 'women/index.html'
+    paginate_by = 2  # пагинация в base.html
     context_object_name = 'books'  # Для вывода в шаблон по данному имени,а не object_list
     # extra_context = {'title': 'Главная страница'}  # Статический контент для шаблона
     queryset = Book.objects.all().order_by('-time_create')  # Отображение на главной в обратном порядке
@@ -75,6 +76,7 @@ class ArchiveView(ListView):
     model = Book
     template_name = 'women/archives.html'
     context_object_name = 'book'
+    paginate_by = 2  # пагинация в base.html
 
     def get_context_data(self, *, object_list=None, **kwargs):  # Шаблонная запись для изменения/отображения, гибко!
         context = super().get_context_data(**kwargs)
@@ -110,9 +112,11 @@ def addbook(request):
 '''
 
 
-class AddBookView(CreateView):
+class AddBookView(LoginRequiredMixin, CreateView):
     form_class = AddBookForm
     template_name = 'women/add_book.html'
+    login_url = reverse_lazy('index')  #  Редирект если пользователь неавторизован, миксин в работе.
+    raise_exception = True  #  Если пользователь неавторизован, то доступ запрещен
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -123,6 +127,7 @@ class AddBookView(CreateView):
         'index')  # Минует обычный reverse,который при добавлении обьекта направил
                   # Бы url на детали добавленного обьекта, Lazy делает reverse только по указанному маршруту
                   # И ждёт пока обьект создатся и только потом делает перенаправление, рекомендовано вместо обычно
+
 
 def contact(request):
     context = {

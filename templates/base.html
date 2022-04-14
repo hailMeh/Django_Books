@@ -22,9 +22,9 @@
 {% get_categories as cats %}
 {% get_year as year %}
 <nav class="bg-white navbar navbar-expand-lg navbar-light pb-lg-1 pt-lg-3 text-uppercase">
-    <div class="container flex-wrap">
+    <div class="container fluid">
         <a class="mx-lg-auto navbar-brand text-primary" href="{% url 'index' %}">My books</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown-7"
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown-7"
                 aria-controls="navbarNavDropdown-7" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -67,10 +67,34 @@
                 </li>
             </ul>
     </div>
-    </div>
+
 </nav>
 
 {% block content %}{% endblock %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-1">
+            <nav class="list-pages" aria-label="Page navigation example ">
+                <ul class="pagination pagination-lg">
+                    {% for p in paginator.page_range %}
+                   {% if page_obj.number == p %}
+                        <li class="page-item active">
+                        <p class="page-link">{{ p }}</p>
+                        </li>
+                   {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+                        <li class="page-item">
+                            <a href="?page={{ p }}" class="page-link">{{ p }}</a>
+                        </li>
+                   {% endif %}
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+
 
 <footer class="bg-light pb-3 pt-3 small text-secondary">
     <div class="container">
@@ -84,8 +108,6 @@
             </div>
         </div>
     </div>
-
-
 </footer>
 </body>
 </html>
