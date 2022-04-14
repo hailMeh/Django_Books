@@ -3,33 +3,34 @@
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
 
-{% if book %}
+    {% if book %}
         {% for b in book %}
-    <section class="bg-light pb-2 pt-4 text-secondary">
-        <div class="container">
-            <p class="py-2 mb-2 text-center h1 text-dark">In {{ b.year }} year published</p>
-            <div class="bg-white mb-2 p-3 mt-4">
-                <div class="row">
-                    <div class="col-md-4"> {% if b.photo %}
-                        <a href="#" class="d-block mb-3 mb-md-0"><img
-                                src="{{ b.photo.url }}"
-                                class="img-fluid w-75" alt="..." width="700" height="480"></a> {% endif %}
-                    </div>
-                    <div class="col-md-8">
-                        <a href="{{ b.get_absolute_url }}" class="text-dark text-decoration-none"><h3 class="font-weight-bold h4">{{ b.title }}</h3></a>
-                        <h4 class="font-weight-bold h6 mb-3 small text-secondary">{{ b.time_create }}</h4>
-                        <p>{{ b.content|linebreaks|truncatewords:50 }}</p>
-                        <a href="{{ b.get_absolute_url }}" class="btn btn-outline-secondary btn-sm">Details</a>
-                        <a href="{% url 'category' b.category.slug %}" class="btn btn-outline-secondary btn-sm">Category</a>
+            <section class="bg-light pb-2 pt-4 text-secondary">
+                <div class="container">
+                    <div class="bg-white mb-2 p-3 mt-4">
+                        <div class="row">
+                            <div class="col-md-4"> {% if b.photo %}
+                                <a href="#" class="d-block mb-3 mb-md-0"><img
+                                        src="{{ b.photo.url }}"
+                                        class="img-fluid w-75" alt="..." width="700" height="480"></a> {% endif %}
+                            </div>
+                            <div class="col-md-8">
+                                <a href="{{ b.get_absolute_url }}" class="text-dark text-decoration-none"><h3
+                                        class="font-weight-bold h4">{{ b.title }}</h3></a>
+                                <h4 class="font-weight-bold h6 mb-3 small text-secondary">{{ b.time_create }}</h4>
+                                <p>{{ b.content|linebreaks|truncatewords:50 }}</p>
+                                <a href="{{ b.get_absolute_url }}" class="btn btn-outline-secondary btn-sm">Details</a>
+                                <a href="{% url 'category' b.category.slug %}" class="btn btn-outline-secondary btn-sm">Category</a>
+                                <a href="{% url 'archive' b.year.slug %}"
+                                   class="btn btn-sm btn-outline-info">In {{ b.year }} published</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    {% endfor %}
+            </section>
+        {% endfor %}
     {% else %}
-    NO BOOKS HERE
+        NO BOOKS HERE
     {% endif %}
 
 
