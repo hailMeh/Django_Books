@@ -13,4 +13,4 @@ def get_categories():
 
 @register.simple_tag()
 def get_year():
-    return Year.objects.all()
+    return Year.objects.all().order_by('-date')

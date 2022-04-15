@@ -6,7 +6,6 @@ from .models import *
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-
 ''' ФУНКЦИОНАЛЬНАЯ ГЛАВНАЯ СТРАНИЦА
 def index(request):
     books = Book.objects.all().order_by('-time_create')  # Отображение на главной в обратном порядке
@@ -24,7 +23,8 @@ class IndexView(ListView):
     paginate_by = 2  # пагинация в base.html
     context_object_name = 'books'  # Для вывода в шаблон по данному имени,а не object_list
     # extra_context = {'title': 'Главная страница'}  # Статический контент для шаблона
-    queryset = Book.objects.all().order_by('-time_create')  # Отображение на главной в обратном порядке
+    queryset = Book.objects.all().order_by('-time_create').select_related(
+        'category')  # Отображение на главной в обратном порядке. Select_related для оптимизации загрузки из БД
 
     # def get_queryset(self):
     #   return Women.objects.filter(is_published=True)
@@ -51,15 +51,17 @@ class CategoryView(ListView):
     template_name = 'women/show_category.html'
     context_object_name = 'book'  # обращение к модели через
     allow_empty = False  # Если пусто то на 404
+    paginate_by = 2  # пагинация в base.html
 
     def get_context_data(self, *, object_list=None, **kwargs):  # Шаблонная запись для изменения/отображения, гибко!
         context = super().get_context_data(**kwargs)
         context['title'] = 'Category - ' + str(context['book'][0].category)
-        context['category'] = Book.objects.filter(category__slug=self.kwargs['slug'])
+        context['category'] = Book.objects.filter(category__slug=self.kwargs['slug']).select_related('category')
         return context
 
     def get_queryset(self):  # ОРМ можно применять через служебную функцию
-        return Book.objects.filter(category__slug=self.kwargs['slug'], is_published=True)
+        return Book.objects.filter(category__slug=self.kwargs['slug'], is_published=True).select_related('category')
+
 
 '''
 def archive(request, slug):
@@ -118,8 +120,8 @@ def addbook(request):
 class AddBookView(LoginRequiredMixin, CreateView):
     form_class = AddBookForm
     template_name = 'women/add_book.html'
-    login_url = reverse_lazy('index')  #  Редирект если пользователь неавторизован, миксин в работе.
-    raise_exception = True  #  Если пользователь неавторизован, то доступ запрещен
+    login_url = reverse_lazy('index')  # Редирект если пользователь неавторизован, миксин в работе.
+    raise_exception = True  # Если пользователь неавторизован, то доступ запрещен
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -128,8 +130,8 @@ class AddBookView(LoginRequiredMixin, CreateView):
 
     success_url = reverse_lazy(
         'index')  # Минует обычный reverse,который при добавлении обьекта направил
-                  # Бы url на детали добавленного обьекта, Lazy делает reverse только по указанному маршруту
-                  # И ждёт пока обьект создатся и только потом делает перенаправление, рекомендовано вместо обычно
+    # Бы url на детали добавленного обьекта, Lazy делает reverse только по указанному маршруту
+    # И ждёт пока обьект создатся и только потом делает перенаправление, рекомендовано вместо обычно
 
 
 def contact(request):
@@ -140,7 +142,11 @@ def contact(request):
 
 
 def pageNotFound(request, exception):  # Страница не найдена
-    return HttpResponseNotFound('NOT FOUND PAGE')
+    return render(request, 'women/Error.html', {'title': 'Page not found'})
+
+
+def authNeed(request, exception):  # Страница не найдена
+    return render(request, 'women/403.html', {'title': 'Access denied'})
 
 
 class BookView(DetailView):

@@ -32,6 +32,9 @@ INSTALLED_APPS = [
     'bootstrap5',  # pip install django-bootstrap-v5
     "crispy_forms",  # pip install crispy-bootstrap5
     "crispy_bootstrap5",
+    'debug_toolbar',  # pip install django-debug-toolbar
+    'captcha'  # pip install django-simple-captcha
+
 ]
 
 MIDDLEWARE = [
@@ -42,14 +45,20 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',  # Added
 ]
+
+INTERNAL_IPS = [
+    '127.0.0.1',  # Added for debug toolbar
+]
+
 
 ROOT_URLCONF = 'women_project.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [os.path.join(BASE_DIR, 'templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -125,3 +134,14 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
+
+
+CACHES = {   # Добавление папки в корень, в которой будет храниться кэш. Нужно для оптимизации загрузки страниц
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'women_project_cache'),
+    }
+}
+
+CAPTCHA_FONT_SIZE = 30  #  https://django-simple-captcha.readthedocs.io/en/latest/advanced.html
+CAPTCHA_LENGTH = 6

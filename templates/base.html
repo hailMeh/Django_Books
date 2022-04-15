@@ -2,7 +2,7 @@
 {% load static %}
 {# Load the tag library #}
 {% load bootstrap5 %}
-
+{% load cache %}
 {# Load CSS and JavaScript #}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
@@ -21,8 +21,10 @@
 <body>
 {% get_categories as cats %}
 {% get_year as year %}
-<nav class="bg-white navbar navbar-expand-lg navbar-light pb-lg-1 pt-lg-3 text-uppercase">
+
+<nav class="bg-white navbar navbar-expand-lg navbar-light pb-lg-4 pt-lg-3 text-uppercase mb-4">
     <div class="container fluid">
+    {% cache 20 sidebar %}
         <a class="mx-lg-auto navbar-brand text-primary" href="{% url 'index' %}">My books</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown-7"
                 aria-controls="navbarNavDropdown-7" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,6 +68,7 @@
                     <a class="nav-link px-lg-3 py-lg-3" href="{% url 'contact' %}">My Contacts</a>
                 </li>
             </ul>
+        {% endcache %}
             <div class="px-5">
                 {% if user.is_authenticated %}
                     <a href="{% url 'logout' %}"  class="btn btn-sm btn-danger mx-1 my-2">Logout</a>
@@ -83,7 +86,6 @@
             </div>
         </div>
 </nav>
-
 {% block content %}{% endblock %}
 
 <div class="container">
@@ -111,7 +113,7 @@
     </div>
 </div>
 
-
+{% cache 60 footer %}
 <footer class="bg-light pb-3 pt-3 small text-secondary">
     <div class="container">
         <div class="align-items-center row">
@@ -125,5 +127,6 @@
         </div>
     </div>
 </footer>
+{% endcache %}
 </body>
 </html>
