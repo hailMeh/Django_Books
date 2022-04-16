@@ -1,0 +1,84 @@
+Beget!
+Putty, filezilla 
+https://proproprogs.ru/django/nachinaem-razvertyvanie-django-sayta-na-hostinge
+ssh localhost -p222
+mkdir -p ~/.beget/tmp
+cd ~/.beget/tmp/
+wget ftp://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz
+tar -xf libffi-3.2.1.tar.gz && cd libffi-3.2.1
+./configure --prefix $HOME/.local LDFLAGS="-L/usr/local/lib"
+make -j33 && make install
+cd ~
+mkdir -p ~/.local/include
+cd .beget/tmp/libffi-3.2.1/
+cp x86_64-unknown-linux-gnu/include/ffi.h ~/.local/include/
+cp x86_64-unknown-linux-gnu/include/ffitarget.h ~/.local/include/
+cd ~/.beget/tmp
+wget https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tgz
+tar -xf Python-3.8.3.tgz && cd Python-3.8.3
+./configure --prefix=$HOME/.local LDFLAGS="-L/usr/local/lib"
+make -j33 && make install
+cd ~/sultanb1.beget.tech
+~/.local/bin/pip3.8 install virtualenv
+~/.local/bin/python3.8 -m virtualenv djangoenv
+source djangoenv/bin/activate
+pip install django
+django-admin.py startproject <name_project>
+создать passenger_wsgi.py в корень ->------------------------------------
+import os, sys
+sys.path.insert(0, '/home/s/sultanb1/sultanb1.beget.tech/project_name')
+sys.path.insert(1, '/home/s/sultanb1/sultanb1.beget.tech/ djangoenv/lib/python3.8/site-packages')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'project_name.settings'
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+---------------------------------------------------------
+создать .htaccess в корень ->------------------------------------
+PassengerEnabled On
+PassengerPython /home/s/sultanb1/.local/bin/python3.8
+#PassengerPython /home/s/sultanb1/sultanb1.beget.tech/venv/bin/python3.8
+------------------------------------------------------------------------
+В setting allowed_hosts поменять - ALLOWED_HOSTS = ['sultanb1.beget.tech', 'www.sultanb1.beget.tech']
+общий доступ к папке ~/.local
+mkdir tmp; touch tmp/restart.txt
+--------------------------------------
+затем в проекте на локалке
+pip freeze > requirements.txt
+копировать 
+название проекта
+media
+templates
+app
+manage.py
+requirements.txt
+------------------------------------------
+затем в путти
+ssh localhost -p222
+cd sbalak.beget.tech
+source djangoenv/bin/activate
+pip install -r requirements.txt
+pip install django mysqlclient
+python manage.py collectstatic
+-----------------------------------------
+сеттингс еще раз
+Debug=False
+ALLOWED_HOSTS = ['sultanb1.beget.tech', 'www.sultanb1.beget.tech']
+-----------------------------------------------
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'Имя вашей базы данных',
+        'USER': 'Ваш пользователь совпадает с именем базы',
+        'PASSWORD': 'Ваш пароль',
+        'HOST': 'localhost',   
+        'PORT': '3306',
+    }
+}
+python manage.py migrate
+--------------------------------Решение проблемы со статическими файлами на реальном сервере  -- 
+https://proproprogs.ru/django/zavershaem-razvertyvanie-django-sayta-na-hostinge
+если нужен перенос локальной бд на серверную в бегете -
+set PYTHONIOENCODING=utf-8 в локальном проекте
+python manage.py dumpdata --exclude auth.permission --exclude contenttypes > db.json
+и затем в серверном конфиге загрузка -
+python manage.py loaddata db.json
+может ругаться на похожие имена юзеров и суперюзера. для этого лучше удалить суперюзера и юзеров везде и затем после успешной миграции создать заново.
